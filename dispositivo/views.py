@@ -19,6 +19,7 @@ from .forms import RegistroUsuarioForm
 from .models import DeviceModel
 from .models import PrestamoModel
 from .forms import PrestamoForm
+from .forms import EditarPerfilForm  # Crea este formulario
 
 # Create your views here.
 
@@ -194,3 +195,22 @@ def generar_codigo_barras(numero_serie):
     filename = f"codigos/{numero_serie}"
     codigo.save(filename)
     return filename
+
+@login_required
+def perfilView(request):
+    profile = request.user.profile  # Recupera el perfil del usuario autenticado
+    return render(request, 'registration/perfil.html', {'profile': profile})
+
+@login_required
+def editarPerfilView(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Perfil actualizado exitosamente.')
+            return redirect('perfil')
+    else:
+        form = EditarPerfilForm(instance=profile)
+
+    return render(request, 'registration/editar_perfil.html', {'form': form})

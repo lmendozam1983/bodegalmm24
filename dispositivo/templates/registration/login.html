@@ -18,7 +18,7 @@
             {% csrf_token %} 
             {{ login_form|crispy }} 
             <button class="btn btn-primary"type="submit">Ingresar</button> </form>
-        <p class="text-center">Si nio tienes una cuenta, registrate en <a href="/dispositivo/templates/registration/registro">, para crear una cuenta</a>.</p>
+        <p class="text-center">Si no tienes una cuenta, registrate, <a href="/dispositivo/templates/registration/registro"> para crear una cuenta</a>.</p>
     </div> 
     {% include "footer.html" %}
     {% endblock content %}

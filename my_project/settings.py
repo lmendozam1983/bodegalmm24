@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-_@%tubbu8f$-j!xqjo6$w=or$bx7%ox!+-*1g)872ihmim4ezl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -142,4 +143,7 @@ TIME_ZONE = 'America/Santiago'
 
 USE_TZ = True  # Si quieres manejar zonas horarias con soporte UTC
 
+# Configuración para los archivos cargados
+MEDIA_URL = '/media/'  # URL pública para acceder a los archivos
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ruta absoluta a la carpeta 'media' en el directorio del proyecto
 
