@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% include "menu.html" %}
+<div class="container my-5">
+    <h2 class="text-center mb-4 text-success fw-bold">Prestar Producto: {{ producto.nombre }}</h2>
+
+    <!-- Formulario para prestar producto -->
+    <form method="POST" action="{% url 'prestar_producto' producto.id %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="cantidad" class="form-label"><b>Cantidad:</b></label>
+            <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" max="{{ producto.cantidad }}" required>
+        </div>
+
+        <button type="submit" class="btn btn-success rounded-pill"><b>Prestar</b></button>
+    </form>
+
+    <br>
+    <a href="{% url 'lista_productos' %}" class="btn btn-info rounded-pill"><b>Volver a la lista de productos</b></a>
+</div>
+{% include "footer.html" %}
+{% endblock %}

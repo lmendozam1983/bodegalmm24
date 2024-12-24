@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% include "menu.html" %}
+<div class="container my-5">
+    <h1 class="text-center mb-4 text-success fw-bold">Lista de Productos</h1>
+
+    <!-- Tabla de productos -->
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th><b>Nombre</b></th>
+                <th><b>Cantidad</b></th>
+                <th><b>Acciones</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td style="width: 33%">{{ producto.nombre }}</td>
+            <td style="width: 33%">{{ producto.cantidad }}</td>
+            <td style="width: 34%">
+                    <a href="{% url 'prestar_producto' producto.id %}" class="btn btn-success btn-m rounded-pill me-2"><b>Prestar</b></a>
+                    <a href="{% url 'prestamos_producto' producto.id %}" class="btn btn-info btn-m rounded-pill me-2"><b>Movimientos</b></a>
+                    <a href="{% url 'agregar_stock' producto.id %}" class="btn btn-dark btn-m rounded-pill"><b>Agregar stock</b></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include "footer.html" %}
+</div>
+{% endblock %}
+

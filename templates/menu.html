@@ -24,7 +24,7 @@
                     <a class="nav-link {% if request.resolver_match.url_name == 'ingresar' %}active{% endif %} btn btn-outline-success text-white ms-2" href="{% url 'ingresar' %}">Ingresar dispositivo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.url_name == 'registrar_prestamo' %}active{% endif %} btn btn-outline-success text-white ms-2" href="{% url 'registrar_prestamo' %}">Prestamos</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'registrar_prestamo' %}active{% endif %} btn btn-outline-success text-white ms-2" href="{% url 'registrar_prestamo' %}">Realizar Préstamo</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'listado_prestamos' %}active{% endif %} btn btn-outline-success text-white ms-2" href="{% url 'listado_prestamos' %}">Listado Prestamos</a>
@@ -33,7 +33,7 @@
             </ul>
             <form class="d-flex" role="search" action="https://www.google.com/search" method="get" target="_blank">
                 <input class="form-control me-2" type="search"  placeholder="Buscar con Google" aria-label="Search">
-                <button class="btn btn-outline-success ms-2" type="submit">Ir</button>
+                <button class="btn btn-outline-success text-white ms-2" type="submit">Ir</button>
                 <span class="nav-item dropdown text-white ms-auto">
                     {% if user.is_authenticated %}
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

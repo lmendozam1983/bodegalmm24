@@ -23,7 +23,8 @@ from .views import IndexView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name="index"),
-    path('dispositivo/', include('dispositivo.urls'))
+    path('dispositivo/', include('dispositivo.urls')),
+    path('producto/', include('producto.urls')),
 ]
 
 # Esto asegura que durante el desarrollo, Django sirva los archivos de medios.
