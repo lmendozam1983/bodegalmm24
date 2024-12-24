@@ -15,8 +15,9 @@ class Producto(models.Model):
 
 
 class Prestamo(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="prestamos_realizados")  # Usuario que realiza el préstamo
+    usuario_destino = models.ForeignKey(User, on_delete=models.CASCADE, related_name="prestamos_recibidos", null=True, blank=True) # Usuario que recibe el préstamo
     cantidad = models.PositiveIntegerField()
     fecha_prestamo = models.DateTimeField(auto_now_add=True)
 

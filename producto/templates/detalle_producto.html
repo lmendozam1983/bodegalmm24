@@ -47,8 +47,9 @@
 
                         <!-- Enlace para ver los préstamos -->
                         <div class="d-flex justify-content-between">
-                            <a href="{% url 'prestamos_producto' producto.id %}" class="btn btn-info rounded-pill"><b>Ver préstamos</b></a>
-                            <a href="{% url 'agregar_stock' producto.id %}" class="btn btn-success rounded-pill"><b>Agregar stock</b></a>
+                            <a href="{% url 'prestamos_producto' producto.id %}" class="btn btn-success rounded-pill"><b>Ver préstamos</b></a>
+                            <a href="{% url 'agregar_stock' producto.id %}" class="btn btn-dark rounded-pill"><b>Agregar stock</b></a>
+                            <a href="{% url 'lista_productos' %}" class="btn btn-info rounded-pill"><b>Volver al listado de productos</b></a>
                         </div>
                     </div>
                 </div>

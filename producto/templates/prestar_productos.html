@@ -2,22 +2,40 @@
 {% block content %}
 
 {% include "menu.html" %}
-<div class="container my-5">
-    <h2 class="text-center mb-4 text-success fw-bold">Prestar Producto: {{ producto.nombre }}</h2>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Prestar Producto: <span class="text-success fw-bold">{{ producto.nombre }}</span></h2>
 
-    <!-- Formulario para prestar producto -->
-    <form method="POST" action="{% url 'prestar_producto' producto.id %}">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="cantidad" class="form-label"><b>Cantidad:</b></label>
-            <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" max="{{ producto.cantidad }}" required>
-        </div>
+    <form method="POST" action="{% url 'prestar_producto' producto.id %}" class="bg-light p-4 rounded shadow-sm">
+      {% csrf_token %}
+      
+      <!-- Campo para seleccionar el usuario destino -->
+      <div class="mb-3">
+        <label for="usuario" class="form-label"><b>Seleccionar Usuario:</b></label>
+        <select name="usuario" id="usuario" class="form-select" required>
+          <option value=""><b>Seleccione un usuario</b></option>
+          {% for usuario in usuarios %}
+            <option value="{{ usuario.id }}">{{ usuario.username }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-        <button type="submit" class="btn btn-success rounded-pill"><b>Prestar</b></button>
+      <!-- Campo para ingresar la cantidad -->
+      <div class="mb-3">
+        <label for="cantidad" class="form-label"><B>Cantidad:</B></label>
+        <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" max="{{ producto.cantidad }}" required>
+      </div>
+      
+      <!-- Botón de envío -->
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-success btn-lg rounded-pill w-50">Prestar</button>
+      </div>
     </form>
 
-    <br>
-    <a href="{% url 'lista_productos' %}" class="btn btn-info rounded-pill"><b>Volver a la lista de productos</b></a>
-</div>
-{% include "footer.html" %}
+    <div class="d-flex justify-content-center mt-3">
+      <a href="{% url 'detalle_producto' producto.id %}" class="btn btn-secondary btn-lg rounded-pill w-50">Volver al detalle del producto</a>
+    </div>
+  </div>
+  {% include "footer.html" %}
 {% endblock %}
+
+
