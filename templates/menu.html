@@ -37,6 +37,16 @@
                 <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'crear_productos' %}active{% endif %} btn btn-outline-success text-white ms-2" href="{% url 'crear_producto' %}">Crear Productos</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'panel_solicitudes' %}active{% endif %} btn btn-outline-success text-white ms-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <b>Acciones</b>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item {% if request.resolver_match.url_name == 'panel_solicitudes' %}active{% endif %}" href="{% url 'panel_solicitudes' %}">Panel Solicitudes</a></li>
+                        <li><a class="dropdown-item {% if request.resolver_match.url_name == 'listar_solicitudes' %}active{% endif %}" href="{% url 'listar_solicitudes' %}">Listar Solicitudes</a></li>
+                    </ul>
+                </li>
+                
                 {% endif %}
             </ul>
             <form class="d-flex" role="search" action="https://www.google.com/search" method="get" target="_blank">

@@ -18,14 +18,16 @@
             {% for producto in productos %}
             <tr>
                 <td style="width: 33%">{{ producto.nombre }}</td>
-            <td style="width: 33%">{{ producto.cantidad }}</td>
-            <td style="width: 34%">
+            <td style="width: 10%">{{ producto.cantidad }}</td>
+            <td style="width: 57%">
 
                 {% if user.is_authenticated and perms.producto.editar_prestamo %}
                     <a href="{% url 'prestar_producto' producto.id %}" class="btn btn-success btn-m rounded-pill me-2"><b>Prestar</b></a>
                     <a href="{% url 'prestamos_producto' producto.id %}" class="btn btn-info btn-m rounded-pill me-2"><b>Movimientos</b></a>
                     <a href="{% url 'agregar_stock' producto.id %}" class="btn btn-dark btn-m rounded-pill"><b>Agregar stock</b></a>
                     {% endif %}
+                    <a href="{% url 'solicitar_producto' producto.id %}" class="btn btn-warning rounded-pill"><b>Solicitar</b></a>
+                    <a href="{% url 'listar_notificaciones' %}" class="btn btn-primary rounded-pill"><b>Revisar solicitudes</b></a>
                 </td>
             </tr>
             {% endfor %}

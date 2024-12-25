@@ -11,6 +11,9 @@ from .models import Producto, Prestamo
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Producto, Prestamo
+from .models import Notificacion
+from .forms import SolicitudProductoForm
+from django.core.paginator import Paginator
 
 # Create your views here.
 def lista_productos(request):
@@ -120,3 +123,86 @@ def agregar_stock(request, producto_id):
             return redirect('agregar_stock', producto_id=producto.id)
 
     return render(request, 'agregar_stock.html', {'producto': producto})
+
+@login_required
+def panel_solicitudes(request):
+    
+    # Obtén todas las notificaciones
+    notificaciones = Notificacion.objects.all()
+
+    return render(request, 'panel_solicitudes.html', {'notificaciones': notificaciones})
+
+@login_required
+def marcar_como_leido(request, notificacion_id):
+    # Solo el admin puede realizar esta acción
+    if not request.user.is_staff:
+        return redirect('home')  # Redirige si no es admin
+
+    notificacion = get_object_or_404(Notificacion, id=notificacion_id)
+    notificacion.leida = True
+    notificacion.save()
+
+    # Redirigir al panel de solicitudes
+    return redirect('panel_solicitudes')
+
+@login_required
+def solicitar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    
+    if request.method == 'POST':
+        form = SolicitudProductoForm(request.POST)
+        if form.is_valid():
+            solicitud = form.save(commit=False)
+            solicitud.producto = producto
+            solicitud.usuario = request.user
+            solicitud.save()
+
+            # Crear la notificación dentro de Django
+            notificacion = Notificacion(
+                usuario=request.user,
+                producto=producto,  # Asignar el producto aquí
+                mensaje=solicitud.mensaje,
+            )
+            notificacion.save()
+
+            # Mostrar un mensaje en la interfaz de Django
+            messages.success(request, f"Has solicitado el producto {producto.nombre}. El administrador revisará tu solicitud.")
+            return redirect('lista_productos')  # Redirige a la lista de productos
+    else:
+        form = SolicitudProductoForm()
+
+    return render(request, 'solicitar_producto.html', {'form': form, 'producto': producto})
+
+
+def aprobar_solicitud(request, notificacion_id):
+    # Buscar la notificación por su ID
+    notificacion = get_object_or_404(Notificacion, id=notificacion_id)
+
+    # Verificar que el usuario sea un administrador
+    if not request.user.is_staff:
+        messages.error(request, "No tienes permisos para aprobar solicitudes.")
+        return redirect('home')  # Redirige a una página predeterminada
+
+    # Cambiar el estado de la solicitud a "aprobada"
+    notificacion.estado = 'Aprobada'  # Asumiendo que 'estado' es un campo en el modelo Notificacion
+    notificacion.save()
+
+    # Enviar un mensaje de éxito
+    messages.success(request, f"La solicitud para el producto {notificacion.producto.nombre} ha sido aprobada.")
+
+    # Redirigir a la lista de solicitudes pendientes
+    return redirect('listar_solicitudes')  # Redirige a la URL que corresponda
+
+@login_required
+def listar_solicitudes(request):
+    solicitudes = Notificacion.objects.filter(estado='Pendiente')
+    paginator = Paginator(solicitudes, 10)  # Muestra 10 solicitudes por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'listar_solicitudes.html', {'page_obj': page_obj})
+
+@login_required
+def listar_notificaciones(request):
+    notificaciones = Notificacion.objects.filter(usuario=request.user).order_by('-fecha_creacion')
+    return render(request, 'notificaciones.html', {'notificaciones': notificaciones})

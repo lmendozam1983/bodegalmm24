@@ -10,6 +10,11 @@ class Producto(models.Model):
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio unitario")
     fecha_ingreso = models.DateField(auto_now_add=True, verbose_name="Fecha de ingreso")
 
+    class Meta:
+        permissions = [
+            ("visualizar_listado", "Puede visualizar el listado de productos"),
+        ]
+
     def __str__(self):
         return self.nombre
 
@@ -23,3 +28,28 @@ class Prestamo(models.Model):
 
     def __str__(self):
         return f"{self.usuario} - {self.producto.nombre} - {self.cantidad}"
+    
+class Notificacion(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    mensaje = models.TextField()  # Campo para el mensaje
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    leida = models.BooleanField(default=False)
+    aprobada = models.BooleanField(default=False)
+    # Opcional: Agregar un campo de estado
+    ESTADOS = (
+        ('Pendiente', 'Pendiente'),
+        ('Aprobada', 'Aprobada'),
+        ('Rechazada', 'Rechazada'),
+    )
+    estado = models.CharField(max_length=10, choices=ESTADOS, default='Pendiente')
+        
+    def __str__(self):
+        return f"Notificación de {self.usuario.username} para {self.producto.nombre}"
+
+    class Meta:
+        ordering = ['-fecha_creacion']
+
+
+
+    

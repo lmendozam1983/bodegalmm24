@@ -8,5 +8,13 @@ urlpatterns = [
     path('templates/detalle_producto/<int:producto_id>/', views.detalle_producto, name='detalle_producto'),
     path('templates/<int:producto_id>/prestamos_producto/', views.prestamos_producto, name='prestamos_producto'),
     path('templates/<int:producto_id>/agregar_stock/', views.agregar_stock, name='agregar_stock'),
+    path('templates/panel_solicitudes/', views.panel_solicitudes, name='panel_solicitudes'),
+    path('admin/marcar_como_leido/<int:notificacion_id>/', views.marcar_como_leido, name='marcar_como_leido'),
+    path('admin/aprobar_solicitud/<int:notificacion_id>/', views.aprobar_solicitud, name='aprobar_solicitud'),  # Nueva URL
+    path('templates/<int:producto_id>/solicitar_producto/', views.solicitar_producto, name='solicitar_producto'),
+    path('templates/listar_solicitudes/', views.listar_solicitudes, name='listar_solicitudes'),
+    path('templates/notificaciones/', views.listar_notificaciones, name='listar_notificaciones'),
 ]
+
+
 
