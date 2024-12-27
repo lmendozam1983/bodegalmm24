@@ -41,7 +41,7 @@
                     <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'panel_solicitudes' %}active{% endif %} btn btn-outline-success text-white ms-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <b>Acciones</b>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item {% if request.resolver_match.url_name == 'panel_solicitudes' %}active{% endif %}" href="{% url 'panel_solicitudes' %}">Panel Solicitudes</a></li>
                         <li><a class="dropdown-item {% if request.resolver_match.url_name == 'listar_solicitudes' %}active{% endif %}" href="{% url 'listar_solicitudes' %}">Listar Solicitudes</a></li>
                     </ul>

@@ -3,13 +3,14 @@
 
 {% include "menu.html" %}
 <div class="container my-5">
-    <h1 class="text-center mb-4 text-success fw-bold">Préstamos del Producto: {{ producto.nombre }}</h1>
+    <h1 class="text-center mb-4 text-success fw-bold">Préstamos del Producto: <b>{{ producto.nombre }}</b></h1>
 
     <!-- Tabla de préstamos -->
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
             <tr>
                 <th><b>Usuario</b></th>
+                <th><b>Cliente</b></th>
                 <th><b>Cantidad</b></th>
                 <th><b>Fecha de Préstamo</b></th>
             </tr>
@@ -18,6 +19,7 @@
             {% for prestamo in prestamos %}
                 <tr>
                     <td>{{ prestamo.usuario.username }}</td>
+                    <td>{{ prestamo.usuario_destino }}</td>
                     <td>{{ prestamo.cantidad }}</td>
                     <td>{{ prestamo.fecha_prestamo }}</td>
                 </tr>
