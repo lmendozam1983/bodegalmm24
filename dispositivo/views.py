@@ -10,6 +10,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import user_passes_test
 
 
 # Local Proyecto Django
@@ -19,7 +20,8 @@ from .forms import RegistroUsuarioForm
 from .models import DeviceModel
 from .models import PrestamoModel
 from .forms import PrestamoForm
-from .forms import EditarPerfilForm  # Crea este formulario
+from .forms import EditarPerfilForm  
+from .models import ImagenUsuario
 
 # Create your views here.
 
@@ -214,3 +216,16 @@ def editarPerfilView(request):
         form = EditarPerfilForm(instance=profile)
 
     return render(request, 'registration/editar_perfil.html', {'form': form})
+
+@permission_required('dispositivo.visualizar_listado', raise_exception=True)
+def ver_imagenes_subidas(request):
+    imagenes = ImagenUsuario.objects.select_related('usuario').order_by('-fecha_subida')
+    print(imagenes)
+    return render(request, 'ver_imagenes.html', {'imagenes': imagenes})
+
+def ver_imagenes(request):
+    imagenes = ImagenUsuario.objects.select_related('usuario').order_by('-fecha_subida')
+    context = {
+        'imagenes': imagenes
+    }
+    return render(request, 'ver_imagenes.html', context)

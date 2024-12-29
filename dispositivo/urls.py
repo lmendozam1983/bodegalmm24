@@ -16,4 +16,5 @@ urlpatterns = [
     path('templates/listar_usuarios/', views.listar_usuarios, name='listar_usuarios'),
     path('templates/registration/perfil/', views.perfilView, name='perfil'),
     path('templates/registration/editar_perfil/', views.editarPerfilView, name='editar_perfil'),
+    path('templates/ver_imagenes/', views.ver_imagenes_subidas, name='ver_imagenes_subidas'),
 ]

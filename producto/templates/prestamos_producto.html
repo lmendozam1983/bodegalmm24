@@ -3,16 +3,17 @@
 
 {% include "menu.html" %}
 <div class="container my-5">
-    <h1 class="text-center mb-4 text-success fw-bold">Préstamos del Producto: <b>{{ producto.nombre }}</b></h1>
+    <h1 class="text-center mb-4 text-success ">Préstamos del Producto: <b>{{ producto.nombre }}</b></h1>
 
     <!-- Tabla de préstamos -->
     <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
+        <thead class="table-success">
             <tr>
                 <th><b>Usuario</b></th>
                 <th><b>Cliente</b></th>
                 <th><b>Cantidad</b></th>
                 <th><b>Fecha de Préstamo</b></th>
+                <!--<th><b>Generar Voucher</b></th>-->
             </tr>
         </thead>
         <tbody>
@@ -22,13 +23,21 @@
                     <td>{{ prestamo.usuario_destino }}</td>
                     <td>{{ prestamo.cantidad }}</td>
                     <td>{{ prestamo.fecha_prestamo }}</td>
+                    <!--<td>
+                        {% if prestamo.notificacion %}
+                            <a href="{% url 'generar_voucher' prestamo.notificacion.id %}" class="btn btn-primary fs-7 py-2 px-2 rounded-pill">
+                                Generar Voucher
+                            </a>
+                        {% endif %}
+                    </td>-->
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="3" class="text-center"><b>No hay préstamos para este producto.</b></td>
+                    <td colspan="5" class="text-center"><b>No hay préstamos para este producto.</b></td>
                 </tr>
             {% endfor %}
         </tbody>
+        
     </table>
 
     <a href="{% url 'lista_productos' %}" class="btn btn-info rounded-pill"><b>Volver a la lista de productos</b></a>

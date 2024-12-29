@@ -14,6 +14,7 @@ urlpatterns = [
     path('templates/<int:producto_id>/solicitar_producto/', views.solicitar_producto, name='solicitar_producto'),
     path('templates/listar_solicitudes/', views.listar_solicitudes, name='listar_solicitudes'),
     path('templates/notificaciones/', views.listar_notificaciones, name='listar_notificaciones'),
+    path('templates/voucher/<int:notificacion_id>/', views.generar_voucher, name='generar_voucher'),
 ]
 
 

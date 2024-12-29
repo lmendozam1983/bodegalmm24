@@ -14,6 +14,9 @@ from .models import Producto, Prestamo
 from .models import Notificacion
 from .forms import SolicitudProductoForm
 from django.core.paginator import Paginator
+from django.http import HttpResponse
+from datetime import timedelta
+
 
 # Create your views here.
 def lista_productos(request):
@@ -92,13 +95,24 @@ def detalle_producto(request, producto_id):
 
 @login_required
 def prestamos_producto(request, producto_id):
+    # Obtener el producto específico
     producto = get_object_or_404(Producto, id=producto_id)
 
-    # Obtener todos los préstamos del producto específico
+    # Obtener los préstamos del producto específico
     prestamos = Prestamo.objects.filter(producto=producto)
 
-    # Pasar los préstamos y el producto a la plantilla
-    return render(request, 'prestamos_producto.html', {'producto': producto, 'prestamos': prestamos})
+    # Obtener las notificaciones necesarias, puedes filtrarlas si es necesario
+    notificaciones = Notificacion.objects.all()
+
+    # Pasar los préstamos, producto y notificaciones a la plantilla
+    context = {
+        'producto': producto,
+        'prestamos': prestamos,
+        'notificaciones': notificaciones,
+    }
+
+    # Renderizar la plantilla con el contexto
+    return render(request, 'prestamos_producto.html', context)
 
 @login_required
 def agregar_stock(request, producto_id):
@@ -206,3 +220,17 @@ def listar_solicitudes(request):
 def listar_notificaciones(request):
     notificaciones = Notificacion.objects.filter(usuario=request.user).order_by('-fecha_creacion')
     return render(request, 'notificaciones.html', {'notificaciones': notificaciones})
+
+def generar_voucher(request, notificacion_id):
+    # Obtén la notificación
+    notificacion = get_object_or_404(Notificacion, id=notificacion_id)
+    prestamo = Prestamo.objects.filter(usuario=notificacion.usuario)
+    
+    context = {
+        'usuario': notificacion.usuario,
+        'producto': notificacion.producto,
+        'fecha_prestamo': notificacion.fecha_creacion,
+        'fecha_devolucion': notificacion.fecha_creacion + timedelta(days=7),  # Ejemplo: 7 días después
+        'prestamos': prestamo
+    }
+    return render(request, 'voucher.html', context)

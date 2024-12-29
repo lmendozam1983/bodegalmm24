@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+
 # Create your models here.
 
 class Producto(models.Model):
@@ -18,16 +20,6 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
-
-class Prestamo(models.Model):
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="prestamos_realizados")  # Usuario que realiza el préstamo
-    usuario_destino = models.ForeignKey(User, on_delete=models.CASCADE, related_name="prestamos_recibidos", null=True, blank=True) # Usuario que recibe el préstamo
-    cantidad = models.PositiveIntegerField()
-    fecha_prestamo = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.usuario} - {self.producto.nombre} - {self.cantidad}"
     
 class Notificacion(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -49,6 +41,17 @@ class Notificacion(models.Model):
 
     class Meta:
         ordering = ['-fecha_creacion']
+        
+class Prestamo(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="prestamos_realizados")  # Usuario que realiza el préstamo
+    usuario_destino = models.ForeignKey(User, on_delete=models.CASCADE, related_name="prestamos_recibidos", null=True, blank=True) # Usuario que recibe el préstamo
+    cantidad = models.PositiveIntegerField()
+    fecha_prestamo = models.DateTimeField(auto_now_add=True)
+    notificacion = models.ForeignKey(Notificacion, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.usuario} - {self.producto.nombre} - {self.cantidad}"
 
 
 

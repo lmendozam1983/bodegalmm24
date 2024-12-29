@@ -80,3 +80,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+class ImagenUsuario(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='fotos_perfil/')
+    descripcion = models.TextField(blank=True, null=True)
+    fecha_subida = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.descripcion or 'Sin descripción'}"

@@ -46,6 +46,7 @@
                         <a href="{% url 'aprobar_solicitud' notificacion.id %}" class="btn btn-success fs-7 py-2 px-2 rounded-pill"><b>Aprobar</b></a>
                         {% endif %}
                         <a href="{% url 'marcar_como_leido' notificacion.id %}" class="btn btn-primary fs-7 py-2 px-2 rounded-pill"><b>Marcar como leído</b></a>
+                        <a href="{% url 'generar_voucher' notificacion.id %}" class="btn btn-secondary fs-7 py-2 px-2 rounded-pill">Generar Voucher</a>
                     </td>
                 </tr>
             {% endfor %}
