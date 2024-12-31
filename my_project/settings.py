@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-_@%tubbu8f$-j!xqjo6$w=or$bx7%ox!+-*1g)872ihmim4ezl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == True
 
-ALLOWED_HOSTS = os.getenv("https://bodegalmm24.onrender.com", "").split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "bodegalmm24.onrender.com,127.0.0.1").split(",")
+
 
 import dj_database_url 
 import os
