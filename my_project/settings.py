@@ -51,10 +51,18 @@ INSTALLED_APPS = [
     'producto',
     'crispy_forms', 
     "crispy_bootstrap5",
+    "storages",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5" 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Configuración de AWS S3
+AWS_ACCESS_KEY_ID = 'KEY_ID'
+AWS_SECRET_ACCESS_KEY = 'SECRET_KEY'
+AWS_STORAGE_BUCKET_NAME = 'gestionbodegalmm'
+AWS_S3_REGION_NAME = 'us-east-2'  # Ejemplo: 'us-west-1'
+AWS_QUERYSTRING_AUTH = False  # Opcional: hace que las URL sean públicas
 
 
 MIDDLEWARE = [
@@ -92,8 +100,19 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse('postgresql://bodega24_user:SeaXwK7W0Oz4N7ubuOdj0903uMVi7Fqm@dpg-ctplkua3esus73dj27g0-a.oregon-postgres.render.com:5432/bodega24')
+    'default': dj_database_url.parse(
+        'postgresql://bodega24_user:SeaXwK7W0Oz4N7ubuOdj0903uMVi7Fqm@dpg-ctplkua3esus73dj27g0-a.oregon-postgres.render.com:5432/bodega24'
+    ),
+    'local': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'm7dia3',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5433',
+    }
 }
+
 
 
 
@@ -132,6 +151,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -147,6 +167,6 @@ TIME_ZONE = 'America/Santiago'
 USE_TZ = True  # Si quieres manejar zonas horarias con soporte UTC
 
 # Configuración para los archivos cargados
-MEDIA_URL = '/media/'  # URL pública para acceder a los archivos
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'  # URL pública para acceder a los archivos
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ruta absoluta a la carpeta 'media' en el directorio del proyecto
 
