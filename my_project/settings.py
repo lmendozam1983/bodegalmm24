@@ -91,8 +91,9 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.parse('postgresql://bodega24_user:SeaXwK7W0Oz4N7ubuOdj0903uMVi7Fqm@dpg-ctplkua3esus73dj27g0-a.oregon-postgres.render.com:5432/bodega24')
 }
+
 
 
 # Password validation
