@@ -61,7 +61,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 AWS_ACCESS_KEY_ID = 'KEY_ID'
 AWS_SECRET_ACCESS_KEY = 'SECRET_KEY'
 AWS_STORAGE_BUCKET_NAME = 'gestionbodegalmm'
-AWS_S3_REGION_NAME = 'us-east-2'  # Ejemplo: 'us-west-1'
+AWS_S3_REGION_NAME = 'us-east-2'  # 'us-west-1'
 AWS_QUERYSTRING_AUTH = False  # Opcional: hace que las URL sean públicas
 
 
