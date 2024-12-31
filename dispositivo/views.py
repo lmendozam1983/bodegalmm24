@@ -106,7 +106,7 @@ def registroView(request):
         if form.is_valid(): 
             content_type = ContentType.objects.get_for_model(DeviceModel) 
             visualizar_listado = Permission.objects.get(
-                codename='visualizar_listado', 
+                codename='staff', 
                 content_type=content_type
             ) 
             user = form.save() 
