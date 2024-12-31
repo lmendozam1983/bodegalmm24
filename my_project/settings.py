@@ -64,9 +64,6 @@ AWS_STORAGE_BUCKET_NAME = 'gestionbodegalmm'
 AWS_S3_REGION_NAME = 'us-east-2'  # 'us-west-1'
 AWS_QUERYSTRING_AUTH = False  # Opcional: hace que las URL sean públicas
 
-# Opcional: Dominio personalizado de S3
-AWS_S3_CUSTOM_DOMAIN = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
-
 # Establece S3 como el almacenamiento por defecto
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
@@ -177,6 +174,6 @@ TIME_ZONE = 'America/Santiago'
 USE_TZ = True  # Si quieres manejar zonas horarias con soporte UTC
 
 # Configuración para los archivos cargados
-MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.us-west-2.amazonaws.com/'  # URL pública para acceder a los archivos
+MEDIA_URL = f'https://gestionbodegalmm.s3.us-east-2.amazonaws.com/'  # URL pública para acceder a los archivos
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ruta absoluta a la carpeta 'media' en el directorio del proyecto
 
