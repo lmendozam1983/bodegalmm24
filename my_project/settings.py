@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_@%tubbu8f$-j!xqjo6$w=or$bx7%ox!+-*1g)872ihmim4ezl
 DEBUG = os.getenv("DEBUG", "False") == True
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
-
+import dj_database_url 
 import os
 from dotenv import load_dotenv
 
@@ -89,15 +89,8 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = { 
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'), 
-        'USER': os.getenv('DB_USER'), 
-        'PASSWORD': os.getenv('DB_PASSWORD'),  
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-    }
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 
