@@ -167,6 +167,6 @@ TIME_ZONE = 'America/Santiago'
 USE_TZ = True  # Si quieres manejar zonas horarias con soporte UTC
 
 # Configuración para los archivos cargados
-MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'  # URL pública para acceder a los archivos
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.us-west-2.amazonaws.com/media/'  # URL pública para acceder a los archivos
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ruta absoluta a la carpeta 'media' en el directorio del proyecto
 
