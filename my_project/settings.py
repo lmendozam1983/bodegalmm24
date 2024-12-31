@@ -28,6 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+import os
+from dotenv import load_dotenv
+
+#cargar las variables desce el archivo .env
+load_dotenv()
+
 
 # Application definition
 
@@ -86,9 +92,9 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 DATABASES = { 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'm7dia3', 
-        'USER': 'postgres', 
-        'PASSWORD': '28292809', 
+        'NAME': os.getenv('USER_NAMEDB'), 
+        'USER': os.getenv('USER_DB'), 
+        'PASSWORD': os.getenv('SECRET_KEY'),  
         'HOST': 'localhost', 
         'PORT': '5433', 
     }
