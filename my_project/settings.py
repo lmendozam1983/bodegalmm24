@@ -64,6 +64,16 @@ AWS_STORAGE_BUCKET_NAME = 'gestionbodegalmm'
 AWS_S3_REGION_NAME = 'us-east-2'  # 'us-west-1'
 AWS_QUERYSTRING_AUTH = False  # Opcional: hace que las URL sean públicas
 
+# Opcional: Dominio personalizado de S3
+AWS_S3_CUSTOM_DOMAIN = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
+
+# Establece S3 como el almacenamiento por defecto
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Opcional: Configuración adicional para caché de archivos estáticos
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',  # Cachea los archivos por un día
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
